@@ -1,37 +1,21 @@
 import {Fragment,useState,useEffect} from "react";
 import axios from "axios";
+import {fetchNews} from "../../actions/foodActions";
+import {useSelector,useDispatch} from "react-redux";
 
 function News(){
-   const [newsList,setNewsList]=useState([])
-   const [fd,setFd]=useState('맛집')
-
+   const dispath=useDispatch()
+   const [fd,setFd]=useState('마포')
    useEffect(()=>{
-      axios.get("http://localhost/news/news_find_react",{
-         params:{
-            fd:fd
-         }
-      }).then(response=>{
-         console.log(response.data)
-         setNewsList(response.data)
-      }).catch(error=>{
-         console.log(error.response)
-      })
+     dispath(fetchNews(fd))
    },[])
     const findBtn=()=>{
-        axios.get("http://localhost/news/news_find_react",{
-            params:{
-                fd:fd
-            }
-        }).then(response=>{
-            console.log(response.data)
-            setNewsList(response.data)
-        }).catch(error=>{
-            console.log(error.response)
-        })
+        dispath(fetchNews(fd))
     }
     const newsChange=(e)=>{
        setFd(e.target.value)
     }
+    const newsList=useSelector((state)=> state.foods.news_data)
    let html=newsList.map((news)=>
      <table className={"table"}>
          <tbody>

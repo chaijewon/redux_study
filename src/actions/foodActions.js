@@ -79,3 +79,17 @@ export const fetchFoodDetail=(fno)=>dispatch=>{
         // reducer로 전송 => store
     }))
 }
+// 검색데이터 읽기
+// 페이지 읽기
+// 뉴스 검색
+export const fetchNews=(fd)=>dispatch=>{
+    axios.get("http://localhost/news/news_find_react",{
+        params:{
+           fd:fd
+        }
+    }).then(response=>dispatch({
+        type:FETCH_NEWS,
+        payload:response.data
+        // reducer로 전송 => store
+    }))
+}
